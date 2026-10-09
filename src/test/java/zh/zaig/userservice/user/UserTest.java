@@ -1,4 +1,4 @@
-package zh.zaig.userservice.entity;
+package zh.zaig.userservice.user;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

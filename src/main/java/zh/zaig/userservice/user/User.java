@@ -1,4 +1,4 @@
-package zh.zaig.userservice.entity;
+package zh.zaig.userservice.user;
 
 import jakarta.persistence.*;
 
@@ -26,7 +26,7 @@ public class User {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    public User() {
+    protected User() {
     }
 
     public User(String name, String email, Integer age) {
@@ -83,8 +83,7 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
+        if (!(o instanceof User user)) return false;
         return Objects.equals(id, user.id);
     }
 

@@ -1,4 +1,4 @@
-package zh.zaig.userservice.exception;
+package zh.zaig.userservice.user.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
