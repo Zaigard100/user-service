@@ -85,8 +85,8 @@ class UserApiIT {
 
         mockMvc.perform(get("/api/users"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(3)))
-                .andExpect(jsonPath("$[2].name").value("Шварев Нейрослоп"));
+                .andExpect(jsonPath("$._embedded.users", hasSize(3)))
+                .andExpect(jsonPath("$._embedded.users[2].name").value("Шварев Нейрослоп"));
     }
 
     @Test

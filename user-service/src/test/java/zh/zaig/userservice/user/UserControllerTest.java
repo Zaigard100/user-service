@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
+@Import(UserModelAssembler.class)
 @DisplayName("UserController")
 class UserControllerTest {
 
@@ -73,9 +75,9 @@ class UserControllerTest {
 
             mockMvc.perform(get(URL))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(2)))
-                    .andExpect(jsonPath("$[0].name").value("Сатор Арепыч"))
-                    .andExpect(jsonPath("$[1].email").value("rizvanov@mail.com"));
+                    .andExpect(jsonPath("$._embedded.users", hasSize(2)))
+                    .andExpect(jsonPath("$._embedded.users[0].name").value("Сатор Арепыч"))
+                    .andExpect(jsonPath("$._embedded.users[1].email").value("rizvanov@mail.com"));
         }
 
         @Test
@@ -85,7 +87,7 @@ class UserControllerTest {
 
             mockMvc.perform(get(URL))
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$", hasSize(0)));
+                    .andExpect(jsonPath("$._links.self.href").exists());
         }
     }
 
@@ -104,7 +106,9 @@ class UserControllerTest {
                     .andExpect(jsonPath("$.name").value("Сатор Арепыч"))
                     .andExpect(jsonPath("$.email").value("sator@mail.com"))
                     .andExpect(jsonPath("$.age").value(54))
-                    .andExpect(jsonPath("$.createdAt").exists());
+                    .andExpect(jsonPath("$.createdAt").exists())
+                    .andExpect(jsonPath("$._links.self.href").value(endsWith("/api/users/1")))
+                    .andExpect(jsonPath("$._links.users.href").value(endsWith("/api/users")));
         }
 
         @Test
