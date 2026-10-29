@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 30000
+      connection-timeout: 20000
+
+server:
+  port: 8082

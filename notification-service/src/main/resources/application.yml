@@ -1,6 +1,8 @@
 spring:
   application:
     name: notification-service
+  config:
+    import: ${CONFIG_IMPORT:configserver:${CONFIG_SERVER_URL:http://localhost:8888}}
 
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
